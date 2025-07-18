@@ -1,90 +1,85 @@
-# TM1628 7‑Segment LED Display Kernel Driver for i.MX93
-
-This repository provides a Linux **kernel driver** for the **TM1628** 7-segment LED and keypad controller IC, developed and tested on the **NXP FRDM-i.MX93** board.
-
-The TM1628 driver enables:
-- Display control of **8-digit 7-segment LED**
-- Keypad scanning of **16 keys (4x4 matrix)**
-- GPIO-based bit-banging protocol (CLK, DIO, STB)
-
----
-
-## 📦 Files Included
-
-tm1628_docs/
+📁 Directory Structure
+bash
+Copy
+Edit
+tm1628_driver/
 ├── Kernel_Driver_tm1628/
-│ ├── driver_tm1628.c # Main kernel driver
-│ ├── tm1628_keys.c # Keypad scan logic
-│ └── dts.txt # Device tree snippet
-├── TM1628 7‑Segment LED Driver Code.pdf # Developer documentation
-├── TM1628_V1.1_EN.pdf # Official TM1628 datasheet
-└── tm1628_dts.txt # Additional DTS sample
+│   ├── tm1628.c          # Main kernel driver (renamed from driver_tm1628.c)
+│   ├── tm1628_keys.c     # Keypad handling logic
+│   └── dts.txt           # Device Tree snippet for GPIO config
+├── tm1628_dts.txt        # Additional DTS sample (optional)
+├── TM1628_V1.1_EN.pdf    # Official TM1628 datasheet
+└── TM1628_Driver_Guide.pdf  # Project setup and internal logic explained
+🛠️ How to Use This Driver
+✅ 1. Add TM1628 Node in Device Tree
+Edit your board's DTS file (imx93-*.dts) and insert the following node:
 
 
-
----
-
-## 🛠️ Step-by-Step: How to Use the Driver
-
-### 1️⃣ Add TM1628 Node in Device Tree
-
-Edit your board DTS file (e.g. `imx93-frdm.dts`) and include this node:
-
-```dts
 tm1628@0 {
     compatible = "essae,tm1628";
     clk-gpio = <&gpio3 18 GPIO_ACTIVE_HIGH>;
     dio-gpio = <&gpio3 20 GPIO_ACTIVE_HIGH>;
     stb-gpio = <&gpio3 19 GPIO_ACTIVE_HIGH>;
 };
-💡 Use the correct GPIO lines from your hardware. See tm1628_dts.txt for reference.
+📌 Match GPIO lines according to your hardware setup.
 
-2️⃣ Build the Kernel Module
-Move into the driver folder:
+✅ 2. Build the Kernel Module
+Navigate to the driver folder and run:
 
 
 cd Kernel_Driver_tm1628/
-Build against your current kernel:
-
-
 make -C /lib/modules/$(uname -r)/build M=$(pwd) modules
-3️⃣ Insert the Driver into Kernel
-
-sudo insmod driver_tm1628.ko
-Verify driver loaded:
-
-
+✅ 3. Insert the Driver into Kernel
+bash
+Copy
+Edit
+sudo insmod tm1628.ko
 dmesg | grep tm1628
-4️⃣ Auto-load with System Boot (Optional)
-To make the driver auto-load at boot:
+✅ 4. Auto-Load Driver at Boot (Optional)
+bash
+Copy
+Edit
+# Copy module to system path
+sudo cp tm1628.ko /lib/modules/$(uname -r)/kernel/drivers/misc/
 
-Copy .ko file to kernel modules:
+# Register it for boot
+echo "tm1628" | sudo tee -a /etc/modules
 
-
-sudo cp driver_tm1628.ko /lib/modules/$(uname -r)/kernel/drivers/misc/
-Add module name to /etc/modules:
-
-
-echo "driver_tm1628" | sudo tee -a /etc/modules
-Update module dependencies:
-
-
+# Update module dependency list
 sudo depmod -a
-🔧 Hardware Setup
-Signal	TM1628 Pin	Connected GPIO (i.MX93)
-CLK	SCLK	GPIO3_18
-DIO	Data	GPIO3_20
-STB	Strobe	GPIO3_19
+🔧 Hardware Wiring (i.MX93 GPIO to TM1628)
+Signal	TM1628 Pin	i.MX93 GPIO
+CLK	SCLK	GPIO3_IO18 (18)
+DIO	Data	GPIO3_IO20 (20)
+STB	Strobe	GPIO3_IO19 (19)
 
-🔌 Connect the TM1628 correctly to GPIOs. Bit-banged protocol used in driver.
+Ensure the TM1628 is powered and grounded properly.
 
-🧾 References
-TM1628 Datasheet (V1.1)
+⚙️ Kernel Integration (Optional)
+To integrate this driver into a custom kernel build:
 
-Project Document PDF
+📄 Kconfig
+kconfig
+Copy
+Edit
+config LEDS_TM1628
+    tristate "TM1628 LED driver over GPIO"
+    default m
+    help
+      This driver supports the TM1628 7-segment LED and key controller.
+      Communication is done via GPIO bit-banging.
+📄 Makefile
+makefile
+Copy
+Edit
+obj-$(CONFIG_LEDS_TM1628) += tm1628.o
+📚 References
+TM1628 Datasheet
 
-Kernel Driver: driver_tm1628.c
+Driver Code Documentation
 
-👨‍💻 Author
+DTS Example
+
+👤 Author
 Venkatesh M
-Embedded Software Engineer – Essae-Teraoka
+Embedded Software Engineer at Essae-Teraoka
