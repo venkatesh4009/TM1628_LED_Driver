@@ -20,9 +20,7 @@ tm1628_docs/
 ├── TM1628_V1.1_EN.pdf # Official TM1628 datasheet
 └── tm1628_dts.txt # Additional DTS sample
 
-yaml
-Copy
-Edit
+
 
 ---
 
@@ -44,47 +42,33 @@ tm1628@0 {
 2️⃣ Build the Kernel Module
 Move into the driver folder:
 
-bash
-Copy
-Edit
+
 cd Kernel_Driver_tm1628/
 Build against your current kernel:
 
-bash
-Copy
-Edit
+
 make -C /lib/modules/$(uname -r)/build M=$(pwd) modules
 3️⃣ Insert the Driver into Kernel
-bash
-Copy
-Edit
+
 sudo insmod driver_tm1628.ko
 Verify driver loaded:
 
-bash
-Copy
-Edit
+
 dmesg | grep tm1628
 4️⃣ Auto-load with System Boot (Optional)
 To make the driver auto-load at boot:
 
 Copy .ko file to kernel modules:
 
-bash
-Copy
-Edit
+
 sudo cp driver_tm1628.ko /lib/modules/$(uname -r)/kernel/drivers/misc/
 Add module name to /etc/modules:
 
-bash
-Copy
-Edit
+
 echo "driver_tm1628" | sudo tee -a /etc/modules
 Update module dependencies:
 
-bash
-Copy
-Edit
+
 sudo depmod -a
 🔧 Hardware Setup
 Signal	TM1628 Pin	Connected GPIO (i.MX93)
