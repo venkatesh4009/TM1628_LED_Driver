@@ -22,9 +22,7 @@ tm1628_driver/
 ├── TM1628_V1.1_EN.pdf # Official datasheet
 └── TM1628_Driver_Guide.pdf # Project documentation
 
-yaml
-Copy
-Edit
+
 
 ---
 
@@ -44,21 +42,15 @@ tm1628@0 {
 ✅ Ensure the GPIO pins match your hardware connections.
 
 2️⃣ Build the Kernel Module
-bash
-Copy
-Edit
+
 cd Kernel_Driver_tm1628/
 make -C /lib/modules/$(uname -r)/build M=$(pwd) modules
 3️⃣ Insert the Module
-bash
-Copy
-Edit
+
 sudo insmod tm1628.ko
 dmesg | grep tm1628
 4️⃣ Auto-Load at Boot (Optional)
-bash
-Copy
-Edit
+
 # Move to kernel driver path
 sudo cp tm1628.ko /lib/modules/$(uname -r)/kernel/drivers/misc/
 
@@ -78,8 +70,7 @@ STB	Strobe	GPIO3_IO19
 ⚙️ Kernel Integration (Optional for Yocto/Linux Kernel)
 Kconfig
 kconfig
-Copy
-Edit
+
 config LEDS_TM1628
     tristate "TM1628 LED driver"
     default m
@@ -88,9 +79,9 @@ config LEDS_TM1628
       Uses GPIO bit-banging for communication.
 Makefile
 makefile
-Copy
-Edit
+
 obj-$(CONFIG_LEDS_TM1628) += tm1628.o
+
 📚 References
 TM1628 Datasheet
 
