@@ -1,0 +1,97 @@
+
+*************************************************************************************************
+       a
+     -----
+   f|     |b
+    |  g  |
+     -----
+   e|     |c
+    |     |
+     -----  .dp
+       d
+
+
+gcc -o tm1628 tm1628.c
+sudo ./tm1628
+************************************************************************************************************
+
+modprobe /lib/modules/6.6.36-gc0ce6b0ed9e5-dirty/kernel/drivers/leds/tm1628.ko
+modprobe /lib/modules/6.6.36-lts-next-g3e42481c8760-dirty/kernel/drivers/leds/tm1628.ko 
+***********************************************************************************
+
+Expanstion Conecter :
+*********************
+GPIO_NO :     Exp_PIN_NO:	TM1628_PINs:
+*********************************************
+  5V		4	------->  5V
+GPIO_IO18	12	------->  STB
+GPIO_IO19	35	------->  DIN
+GPIO_IO21 	40	------->  CLK
+  GND		6	------->  GND
+
+*************************************************************************************
+
+/ {
+    tm1628: tm1628@0 {
+        compatible = "my,tm1628";
+        stb-gpio = <&gpio2 18 GPIO_ACTIVE_HIGH>;
+        dio-gpio = <&gpio2 19 GPIO_ACTIVE_HIGH>;
+        clk-gpio = <&gpio2 21 GPIO_ACTIVE_HIGH>;
+    };
+};
+
+obj-$(CONFIG_LEDS_TM1628)               += tm1628.o
+
+config LEDS_TM1628
+        tristate "TM1628 LED driver"
+        default m
+        help
+          This driver supports the TM1628 LED display via GPIO bit-banging.
+          It will first display a demo pattern then update the display with the current time.
+
+
+*********************************************************************************************
+dmesg | grep tm1628
+root@imx93frdm:~# echo 10 > /sys/class/auxdisplay/brightness                                                                                                                                                       
+root@imx93frdm:~# echo 15 > /sys/class/auxdisplay/brightness                                                                                                                                                       
+root@imx93frdm:~# echo 10 > /sys/class/auxdisplay/brightness                                                                                                                                                       
+echo on > /sys/class/auxdisplay/time                                                                                                                                                     
+echo off > /sys/class/auxdisplay/time
+echo E.S.S.A.E. > /sys/class/auxdisplay/display
+
+echo "5x12" > /sys/class/tm1628/tm1628/displaymode_config  # Set 5 grids, 12 segments
+ echo "7x10" > /sys/class/auxdisplay/displaymode_config   # Set 7 grids, 10 segments
+echo "6x11" > /sys/class/tm1628/tm1628/displaymode_config  # Reset to default
+cat /sys/class/tm1628/tm1628/displaymode_config  # Check the current configuration
+
+echo on > /sys/class/auxdisplay/keys_control
+echo off > /sys/class/auxdisplay/keys_control
+
+echo "123456" > /sys/class/auxdisplay/display
+echo "5x12" > /sys/class/auxdisplay/displaymode_config
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
