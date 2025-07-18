@@ -16,7 +16,7 @@ This repository contains a Linux **kernel driver** for the **TM1628** 7-segment 
 tm1628_driver/
 ├── Kernel_Driver_tm1628/
 │ ├── tm1628.c # Main kernel driver source
-│ ├── tm1628_keys.c # Keypad logic
+│ ├── Kconfig & Makefile
 │ └── dts.txt # Device Tree snippet
 ├── tm1628_dts.txt # Extra DTS sample
 ├── TM1628_V1.1_EN.pdf # Official datasheet
@@ -59,7 +59,9 @@ echo "tm1628" | sudo tee -a /etc/modules
 
 # Rebuild module dependency list
 sudo depmod -a
+
 🔌 Hardware Wiring
+
 Signal	TM1628 Pin	i.MX93 GPIO
 CLK	SCLK	GPIO3_IO18
 DIO	Data	GPIO3_IO20
@@ -68,7 +70,7 @@ STB	Strobe	GPIO3_IO19
 ✅ Ensure proper 3.3V or 5V supply and common GND
 
 ⚙️ Kernel Integration (Optional for Yocto/Linux Kernel)
-Kconfig
+
 kconfig
 
 config LEDS_TM1628
@@ -77,7 +79,7 @@ config LEDS_TM1628
     help
       Kernel driver for TM1628 7-segment LED and keypad controller.
       Uses GPIO bit-banging for communication.
-Makefile
+
 makefile
 
 obj-$(CONFIG_LEDS_TM1628) += tm1628.o
