@@ -1,0 +1,6 @@
+config LEDS_TM1628
+    tristate "TM1628 LED driver over GPIO"
+    default m
+    help
+      This driver supports the TM1628 7-segment LED and key controller.
+      Communication is done via GPIO bit-banging.
