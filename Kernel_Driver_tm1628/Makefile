@@ -1,0 +1,1 @@
+obj-$(CONFIG_LEDS_TM1628) += tm1628.o
