@@ -13,6 +13,7 @@ This repository contains a Linux **kernel driver** for the **TM1628** 7-segment 
 
 ## 📁 Directory Structure
 
+```bash
 tm1628_driver/
 ├── Kernel_Driver_tm1628/
 │ ├── tm1628.c # Main kernel driver source
@@ -21,7 +22,7 @@ tm1628_driver/
 ├── tm1628_dts.txt # Extra DTS sample
 ├── TM1628_V1.1_EN.pdf # Official datasheet
 └── TM1628_Driver_Guide.pdf # Project documentation
-
+```
 
 
 ---
