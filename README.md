@@ -13,7 +13,7 @@ This repository contains a Linux **kernel driver** for the **TM1628** 7-segment 
 
 ## 📁 Directory Structure
 
-```bash
+```text
 tm1628_driver/
 ├── Kernel_Driver_tm1628/
 │ ├── tm1628.c # Main kernel driver source
@@ -24,9 +24,7 @@ tm1628_driver/
 └── TM1628_Driver_Guide.pdf # Project documentation
 ```
 
-
----
-
+```bash
 ## 🛠️ How to Use This Driver
 
 ### 1️⃣ Add TM1628 Node in Device Tree
@@ -95,3 +93,4 @@ DTS Snippet
 👨‍💻 Author
 Venkatesh M
 Embedded Software Engineer at Essae-Teraoka
+```
