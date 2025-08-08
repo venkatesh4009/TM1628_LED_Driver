@@ -52,31 +52,40 @@ config LEDS_TM1628
 
 ***********************************************************************************************************
 dmesg | grep tm1628
+root@imx93frdm:~# echo 10 > /sys/class/auxdisplay/brightness                                                                                                                                               
+root@imx93frdm:~# echo 15 > /sys/class/auxdisplay/brightness                                                                                                                                               
 root@imx93frdm:~# echo 10 > /sys/class/auxdisplay/brightness                                                                                                                                                       
-root@imx93frdm:~# echo 15 > /sys/class/auxdisplay/brightness                                                                                                                                                       
-root@imx93frdm:~# echo 10 > /sys/class/auxdisplay						   brightness                                                                                                                                                       
 echo on > /sys/class/auxdisplay/time                                                                                                                                                     
 echo off > /sys/class/auxdisplay/time
 echo E.S.S.A.E. > /sys/class/auxdisplay/display
+
+***************************************************************************************************************
 
 echo "5x12" > /sys/class/tm1628/tm1628/displaymode_config  # Set 5 grids, 12 segments
 echo "7x10" > /sys/class/auxdisplay/displaymode_config   # Set 7 grids, 10 segments
 echo "6x11" > /sys/class/tm1628/tm1628/displaymode_config  # Reset to default
 cat /sys/class/tm1628/tm1628/displaymode_config  # Check the current configuration
 
+***************************************************************************************************************
+
 echo on > /sys/class/auxdisplay/keys_control
 echo off > /sys/class/auxdisplay/keys_control
-
 echo "123456" > /sys/class/auxdisplay/display
 echo "5x12" > /sys/class/auxdisplay/displaymode_config
 
+***************************************************************************************************************
+
 modprobe /lib/modules/6.6.36-lts-next-g3e42481c8760-dirty/kernel/drivers/leds/tm1628.ko 
+
+***************************************************************************************************************
 
 echo -n "on" > /sys/class/auxdisplay/keys
 echo -n "off" > /sys/class/auxdisplay/keys
 cat /sys/class/auxdisplay/keys
 echo clear > /sys/class/auxdisplay/keys
 echo show > /sys/class/auxdisplay/keys
+
+***************************************************************************************************************
 
 echo -n  "5555555555555555555555553F00" > /sys/class/auxdisplay/display_raw
 echo -n  "5555555555555555555555073F00" > /sys/class/auxdisplay/display_raw 
@@ -98,46 +107,7 @@ echo -ne "\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF" > /sys/class
 
 echo -n  "000000000000000000000000003F" > /sys/class/auxdisplay/display_raw
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+***************************************************************************************************************
 
 
 
