@@ -42,28 +42,28 @@ tm1628@0 {
 ### 2️⃣ Build the Kernel Module
 
 ```bash
-cd Kernel_Driver_tm1628/
-make -C /lib/modules/$(uname -r)/build M=$(pwd) modules
+$ cd Kernel_Driver_tm1628/
+$ make -C /lib/modules/$(uname -r)/build M=$(pwd) modules
 ```
 
 ### 3️⃣ Insert the Module
 
 ```bash
-sudo insmod tm1628.ko
-dmesg | grep tm1628
+$ sudo insmod tm1628.ko
+$ dmesg | grep tm1628
 ```
 
 ### 4️⃣ Auto-Load at Boot (Optional)
 
 ```bash
 # Move to kernel driver path
-sudo cp tm1628.ko /lib/modules/$(uname -r)/kernel/drivers/misc/
+$ sudo cp tm1628.ko /lib/modules/$(uname -r)/kernel/drivers/misc/
 
 # Register module to load at boot
-echo "tm1628" | sudo tee -a /etc/modules
+$ echo "tm1628" | sudo tee -a /etc/modules
 
 # Rebuild module dependency list
-sudo depmod -a
+$ sudo depmod -a
 ```
 
 ### 🔌 Hardware Wiring
@@ -110,5 +110,6 @@ Venkatesh M – venkatesh.muninagaraju@essae.com
 
 Embedded System Engineer
 
+---
 ---
 
