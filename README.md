@@ -67,12 +67,14 @@ $ sudo depmod -a
 ```
 
 ### 🔌 Hardware Wiring
-```text
-Signal	TM1628 Pin	i.MX93 GPIO
-CLK	SCLK	GPIO3_IO18
-DIO	Data	GPIO3_IO20
-STB	Strobe	GPIO3_IO19
-```
+
+- Signal	TM1628 Pin	i.MX93 GPIO
+- CLK       SCLK	    GPIO3_IO18
+- DIO	    Data	    GPIO3_IO20
+- STB	   Strobe	    GPIO3_IO19
+- GND                   GND
+- 5V                    5V
+
 
 ### ✅ Ensure proper 3.3V or 5V supply and common GND
 
