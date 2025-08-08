@@ -65,7 +65,7 @@ $ echo "tm1628" | sudo tee -a /etc/modules
 # Rebuild module dependency list
 $ sudo depmod -a
 ```
-
+---
 ### 🔌 Hardware Wiring
 
 - Signal	TM1628 Pin	i.MX93 GPIO
@@ -75,8 +75,8 @@ $ sudo depmod -a
 - GND                   GND
 - 5V                    5V
 
-
 ### ✅ Ensure proper 3.3V or 5V supply and common GND
+---
 
 ### ⚙️ Kernel Integration (Optional for Yocto/Linux Kernel)
 
@@ -112,6 +112,5 @@ Venkatesh M – venkatesh.muninagaraju@essae.com
 
 Embedded System Engineer
 
----
 ---
 
